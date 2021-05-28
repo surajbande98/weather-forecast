@@ -33,7 +33,7 @@ export class CityForecastComponent implements OnInit, OnDestroy {
     let city = '';
 
     this.router.events.subscribe(event => {
-      if(event instanceof NavigationStart) {
+      if (event instanceof NavigationStart) {
         console.log(event.url);
 
         city = event.url.split("/")[2];
@@ -42,7 +42,7 @@ export class CityForecastComponent implements OnInit, OnDestroy {
       }
     });
 
-    if(!city) {
+    if (!city) {
       city = window.location.pathname.split("/")[2];
       this.getForecast(city);
     }
@@ -68,10 +68,10 @@ export class CityForecastComponent implements OnInit, OnDestroy {
         // Remove undefines from the array
         this.foreCastData = without(finalData, undefined)
       },
-      (error: HttpErrorResponse) => {
-        this.loader.hide();
-        console.log(error);
-      });
+        (error: HttpErrorResponse) => {
+          this.loader.hide();
+          console.log(error);
+        });
   }
 
   /** This is the goBack function
@@ -82,8 +82,21 @@ export class CityForecastComponent implements OnInit, OnDestroy {
     this.location.back();
   }
 
+  /** This is the ngOnDestroy function
+* @param 
+* @returns 
+**/
   ngOnDestroy() {
     this.getCityDataSubscription.unsubscribe();
+  }
+
+  /** This is the trackById function
+* @param  index number
+ * @param  el any
+* @returns number
+**/
+  trackById(index: number, el: any): number {
+    return el.id;
   }
 
 }

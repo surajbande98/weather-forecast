@@ -33,6 +33,7 @@ export class CitiesForecastComponent implements OnInit, OnDestroy {
 */
   getAllCitiesData() {
     this.loader.show();
+
     this.getAllCitiesDataSubscription = forkJoin([
       this.dataService.getCityDataByName('London'),
       this.dataService.getCityDataByName('Barcelona'),
@@ -50,6 +51,7 @@ export class CitiesForecastComponent implements OnInit, OnDestroy {
     },
       (error: HttpErrorResponse) => {
         this.loader.hide();
+
         console.log(error);
       })
   }
@@ -62,8 +64,21 @@ export class CitiesForecastComponent implements OnInit, OnDestroy {
     return this.helper.getTimeFromTimestamp(timestamp);
   }
 
+  /** This is the ngOnDestroy function
+* @param 
+* @returns 
+**/
   ngOnDestroy() {
     this.getAllCitiesDataSubscription.unsubscribe();
+  }
+
+  /** This is the trackById function
+* @param  index number
+* @param  el any
+* @returns number
+**/
+  trackById(index: number, el: any): number {
+    return el.id;
   }
 
 }
