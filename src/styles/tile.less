@@ -1,0 +1,71 @@
+.cities_landing {
+
+    display: flex;
+    justify-content: center;
+    padding: 60px 10px;
+    flex-direction: column;
+
+    .title {
+        font-family: 'cpIBMSemiBold';
+        font-size: 26px;
+    }
+
+}
+
+.city_tile {
+
+    height: 180px;
+    width: 210px;
+    background: @cp-white;
+    border-top-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    margin-right: 12px;
+
+    box-shadow: 0px 4px 20px @table_shadow;
+
+    border: 1px solid @cp-grey;
+
+    text-decoration: none;
+
+    user-select: none;
+
+    .city_name {
+        font-family: 'cpIBMSemibold';
+        font-size: 30px;
+    }
+
+    .city_temp {
+        font-size: 16px;
+    }
+
+    &:hover {
+        background: #e7fbf3;
+        cursor: pointer;
+    }
+
+    .city_time {
+
+        font-family: 'cpLight';
+        font-size: 12px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+
+        i {
+            font-size: 32px;
+            color: gold;
+            margin-right: 8px;
+
+        }
+
+    }
+
+}
+
+.city_tile.active {
+    background: @cp-active;
+}

@@ -4,7 +4,10 @@
 
     <div class="cities_wrapper row justify-content-center">
 
-        <a class="city_tile" *ngFor="let city of allCitiesData; trackBy: trackById" routerLink="/cities/{{city.name}}">
+        <a class="city_tile"
+         *ngFor="let city of allCitiesData; trackBy: trackById" 
+         [class.active]="selectedCity?.id==city.id"
+         (click)="selectCity(city)">
             <div class="city_name">
                 {{city.name}}
             </div>

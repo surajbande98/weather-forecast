@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { forkJoin, Subscription } from 'rxjs';
 import { HelperService } from 'src/shared/services/helper.service';
 import { LoginLoaderService } from 'src/shared/services/login-loader.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'cities-forecast',
@@ -15,9 +16,12 @@ export class CitiesForecastComponent implements OnInit, OnDestroy {
 
   allCitiesData: any = [];
 
+  selectedCity: any = null;
+
   getAllCitiesDataSubscription: Subscription;
 
   constructor(
+    private router: Router,
     private dataService: WeatherDataService,
     private helper: HelperService,
     private loader: LoginLoaderService
@@ -34,6 +38,8 @@ export class CitiesForecastComponent implements OnInit, OnDestroy {
   getAllCitiesData() {
     this.loader.show();
 
+    // Fork join to make parallel calls
+    // It is good to use forkjoin when we have master kind of data to fetch from server
     this.getAllCitiesDataSubscription = forkJoin([
       this.dataService.getCityDataByName('London'),
       this.dataService.getCityDataByName('Barcelona'),
@@ -69,6 +75,7 @@ export class CitiesForecastComponent implements OnInit, OnDestroy {
 * @returns 
 **/
   ngOnDestroy() {
+    // Avoid memory leaks
     this.getAllCitiesDataSubscription.unsubscribe();
   }
 
@@ -79,6 +86,16 @@ export class CitiesForecastComponent implements OnInit, OnDestroy {
 **/
   trackById(index: number, el: any): number {
     return el.id;
+  }
+
+  /** This is the selectCity function
+* @param city any
+* @returns 
+**/
+  selectCity(city: any): void {
+    this.selectedCity = city;
+    
+    this.router.navigate([`/cities/${city.name}`]);
   }
 
 }

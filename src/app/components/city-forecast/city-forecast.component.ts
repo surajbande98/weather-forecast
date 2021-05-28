@@ -32,14 +32,10 @@ export class CityForecastComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     let city = '';
 
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationStart) {
-        console.log(event.url);
-
-        city = event.url.split("/")[2];
-
-        this.getForecast(city);
-      }
+    // Subscibe to router params
+    this.route.params.subscribe(params => {
+      city = params['name'];
+      this.getForecast(city);
     });
 
     if (!city) {
