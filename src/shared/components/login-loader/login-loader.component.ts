@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { LoginLoaderService } from 'src/shared/services/login-loader.service';
 import { LoaderState } from 'src/shared/models/loader-state';

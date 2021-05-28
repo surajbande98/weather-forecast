@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { WeatherDataService } from 'src/app/services/weather-data.service';
 
 import { map, without } from 'lodash';
-import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { LoginLoaderService } from 'src/shared/services/login-loader.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -24,9 +23,7 @@ export class CityForecastComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private dataService: WeatherDataService,
-    private location: Location,
-    private loader: LoginLoaderService,
-    private router: Router
+    private loader: LoginLoaderService
   ) { }
 
   ngOnInit(): void {
@@ -70,20 +67,12 @@ export class CityForecastComponent implements OnInit, OnDestroy {
         });
   }
 
-  /** This is the goBack function
-* @param 
-* @returns 
-**/
-  goBack(): void {
-    this.location.back();
-  }
-
   /** This is the ngOnDestroy function
 * @param 
 * @returns 
 **/
   ngOnDestroy() {
-    this.getCityDataSubscription.unsubscribe();
+    if(this.getCityDataSubscription) this.getCityDataSubscription.unsubscribe();
   }
 
   /** This is the trackById function

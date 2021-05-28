@@ -12,7 +12,6 @@ import { environment } from 'src/environments/environment';
 export class WeatherDataService {
 
   constructor(
-    private httpService: HttpService,
     private configuration: ConfigurationService
   ) { }
 

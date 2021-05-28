@@ -18,7 +18,7 @@ describe('WeatherDataService', () => {
 
       ]
     });
-    service = TestBed.inject(WeatherDataService);
+    service = TestBed.get(WeatherDataService);
   });
 
   it('----------------Should create-----------------', () => {

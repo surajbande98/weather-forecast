@@ -76,7 +76,7 @@ export class CitiesForecastComponent implements OnInit, OnDestroy {
 **/
   ngOnDestroy() {
     // Avoid memory leaks
-    this.getAllCitiesDataSubscription.unsubscribe();
+    if(this.getAllCitiesDataSubscription) this.getAllCitiesDataSubscription.unsubscribe();
   }
 
   /** This is the trackById function
@@ -94,7 +94,7 @@ export class CitiesForecastComponent implements OnInit, OnDestroy {
 **/
   selectCity(city: any): void {
     this.selectedCity = city;
-    
+
     this.router.navigate([`/cities/${city.name}`]);
   }
 

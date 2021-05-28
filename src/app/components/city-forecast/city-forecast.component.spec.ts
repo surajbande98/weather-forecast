@@ -7,6 +7,8 @@ import { ActivatedRoute } from '@angular/router';
 import { TestModule } from 'src/app/test/test.module';
 
 import {FETCH_CITY_FORECAST} from '../../mocks/forecast.mock';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { of, Observable } from 'rxjs';
 
 describe('CityForecastComponent', () => {
   let component: CityForecastComponent;
@@ -21,28 +23,26 @@ describe('CityForecastComponent', () => {
       providers: [
         WeatherDataService,
         HelperService,
-        {
-          provide: ActivatedRoute,
-          useValue: {
-            snapshot: {
-              paramMap: {
-                get(): string {
-                  return 'London';
-                },
-              },
-            },
-          },
-        },
-      ]
+        { provide: ActivatedRoute, useValue: {
+          params: of({
+            name: 'London',
+          }),
+        }, }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents();
   });
+
+  afterEach(() => {
+    dataService = null;
+
+  })
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CityForecastComponent);
     component = fixture.componentInstance;
     dataService = TestBed.get(WeatherDataService);
-
     fixture.detectChanges();
   });
 
